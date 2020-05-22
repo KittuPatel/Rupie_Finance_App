@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
+import 'package:flutter/services.dart';
 import 'SuccessfulTransaction.dart';
 
 class AddNewTransaction extends StatefulWidget {
@@ -13,14 +13,18 @@ class AddNewTransaction extends StatefulWidget {
   _AddNewTransactionState createState() => _AddNewTransactionState();
 }
 
+String typedropdownValue = 'Hand Loan';
+String reminddropdownValue = 'Monthly';
+
 class _AddNewTransactionState extends State<AddNewTransaction> {
   String phoneNumber, personName;
   String myPhone, myuid;
   List otherUserInfo = [];
   var _dateTime;
-  String reason, errorText, amount;
+  String reason, errorText; 
+  double amount;
   bool send, receive;
-  String selectedValue;
+  double intpercent;
   // void initState() {
   //   FirebaseAuth.instance.currentUser().then((val) {
   //     this.myuid = val.uid;
@@ -37,6 +41,7 @@ class _AddNewTransactionState extends State<AddNewTransaction> {
 
   @override
   Widget build(BuildContext context) {
+    //double intamount = amount * intpercent;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -59,14 +64,14 @@ class _AddNewTransactionState extends State<AddNewTransaction> {
         
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+        padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
         child: ListView(children: <Widget>[
-          SizedBox(height: 20.0),
+          //SizedBox(height: 20.0),
           Text("CONTACT",
                   style: Theme.of(context).textTheme.bodyText1.copyWith(
                     fontWeight: FontWeight.w800
                   )),
-           SizedBox(height: 10.0),        
+           SizedBox(height: 5.0),        
           Row(
             mainAxisAlignment:  MainAxisAlignment.center,
             children: <Widget>[
@@ -184,7 +189,7 @@ class _AddNewTransactionState extends State<AddNewTransaction> {
                   )),
             ],
           ),
-          SizedBox(height: 25),
+          SizedBox(height: 20),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -199,24 +204,25 @@ class _AddNewTransactionState extends State<AddNewTransaction> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10)),
                 child: DropdownButton<String>(
-                  items: <String>['Hand Loan', 'Interest', 'Repeating (Rent, Salaries etc.)'].map((String value) {
-                    return new DropdownMenuItem<String>(
-                      value: selectedValue,
-                      child: new Text(value,
-                      style: Theme.of(context).textTheme.button,
-                      ),
-                    );
-                  }).toList(),
-                  onChanged: (newvalue) {
-                    setState(() {
-                      selectedValue = newvalue;
-                    });
-                  },
-                ),
-              ),
+                      value: typedropdownValue,
+                      onChanged: (String newValue) {
+                        setState(() {
+                          typedropdownValue = newValue;
+                        });
+                      },
+                      items: <String>['Hand Loan', 'Interest', 'Repeating']
+                        .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        })
+                        .toList(),
+                    ),
+                  )
             ],
           ),
-          SizedBox(height: 15.0),
+          SizedBox(height: 10.0),
           Text("AMOUNT",
                   style: Theme.of(context).textTheme.bodyText1.copyWith(
                     fontWeight: FontWeight.w800
@@ -226,16 +232,18 @@ class _AddNewTransactionState extends State<AddNewTransaction> {
               style: TextStyle(fontSize: 23, color: Colors.black, fontWeight: FontWeight.w600),
               onChanged: (value) {
                 setState(() {
-                  this.amount = value;
+                  this.amount = double.parse(value);
                 });
               },
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                //filled: true,
-                //fillColor: Color(0x33E0E7FF),
+                prefixIcon: Padding(
+                              padding: const EdgeInsets.only(top:8.0,left:20),
+                              child: Text('₹',style: TextStyle(fontSize: 23, color: Colors.black, fontWeight: FontWeight.w600),),
+                            ),
                 hintText: 'Enter Amount',
                 hintStyle: TextStyle(fontWeight: FontWeight.normal),
-                prefix: Text("₹ ", style: TextStyle(color: Colors.black,fontWeight: FontWeight.w500)),
+                //prefix: Text("₹ ", style: TextStyle(color: Colors.black,fontWeight: FontWeight.w500)),
                 contentPadding: const EdgeInsets.all(10),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.black26),
@@ -247,45 +255,180 @@ class _AddNewTransactionState extends State<AddNewTransaction> {
                 ),
               )
             ),
-            SizedBox(height: 20,),
-          Text("DATE", style: Theme.of(context).textTheme.bodyText1.copyWith(
+            SizedBox(height: 20),
+            Visibility(
+                visible: typedropdownValue == 'Interest',
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Column(
+                        children: <Widget>[
+                          Text("INTEREST % MONTH", style: Theme.of(context).textTheme.bodyText1.copyWith(
+                          fontWeight: FontWeight.w800
+                          )),
+                          SizedBox(height: 10,),
+                          Container(
+                            width: 100,
+                            child: TextField(
+                                style: TextStyle(fontSize: 23, color: Colors.black, fontWeight: FontWeight.w600),
+                                onChanged: (value) {
+                                  setState(() {
+                                    this.intpercent = double.parse(value);
+                                  });
+                                },
+                                inputFormatters: [
+                                  LengthLimitingTextInputFormatter(2),
+                                ],
+                                //maxLength: 2,
+                                //maxLengthEnforced: true,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  prefixIcon: Padding(
+                                    padding: const EdgeInsets.only(top:8.0,left:15),
+                                    child: Text('%',style: TextStyle(fontSize: 23, color: Colors.black, fontWeight: FontWeight.w600),),
+                                  ),
+                                  hintText: '0',
+                                  //hintStyle: TextStyle(fontWeight: FontWeight.normal),
+                                  //prefix: Text("% ", style: TextStyle(color: Colors.black,fontWeight: FontWeight.w500)),
+                                  contentPadding: const EdgeInsets.all(10),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.black26),
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.black38),
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                )
+                              ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                          children: <Widget>[
+                          Text("INTEREST AMOUNT", style: Theme.of(context).textTheme.bodyText1.copyWith(
+                          fontWeight: FontWeight.w800
+                          )),
+                          SizedBox(height: 10,),
+                          Container(
+                            width: 100,
+                            child: TextField(
+                                enabled: false,
+                                style: TextStyle(fontSize: 23, color: Colors.black, fontWeight: FontWeight.w600),
+                                // onChanged: (value) {
+                                //   setState(() {
+                                //     this.amount = value;
+                                //   });
+                                // },
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  hintText: '5000',
+                                  hintStyle: TextStyle(fontWeight: FontWeight.normal),
+                                 // prefix: Text("₹ ", style: TextStyle(color: Colors.black,fontWeight: FontWeight.w500)),
+                                  contentPadding: const EdgeInsets.all(10),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.black26),
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.black38),
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                )
+                              ),
+                          ),
+                        ],
+                      )
+                    ],
+              ),
+                          SizedBox(height: 20,),
+                  ],
+                  
+                ),
+            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text("DATE", style: Theme.of(context).textTheme.bodyText1.copyWith(
                     fontWeight: FontWeight.w800
                   )),
-          FlatButton(
-              onPressed: () {
-                    showDatePicker(
-                            context: context,
-                            initialDate:
-                                _dateTime == null ? DateTime.now() : _dateTime,
-                            firstDate: DateTime(
-                              2010,
-                            ),
-                            lastDate: DateTime.now())
-                        .then((date) {
-                      setState(() {
-                        _dateTime = date;
-                      });
-                    });
-                  },
-              child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                    _dateTime == null
-                        ? 'Select the date of Payment'
-                        : DateFormat('dd MMM, yyyy')
-                            .format(_dateTime)
-                            .toString(),
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.w500)),
-                  Icon(Icons.arrow_drop_down),
-                  
-              ],
-            ),
+                  FlatButton(
+                      onPressed: () {
+                            showDatePicker(
+                                    context: context,
+                                    initialDate:
+                                        _dateTime == null ? DateTime.now() : _dateTime,
+                                    firstDate: DateTime(
+                                      2010,
+                                    ),
+                                    lastDate: DateTime.now())
+                                .then((date) {
+                              setState(() {
+                                _dateTime = date;
+                              });
+                            });
+                          },
+                      child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                            _dateTime == null
+                                ? 'Select date'
+                                : DateFormat('dd MMM, yyyy')
+                                    .format(_dateTime)
+                                    .toString(),
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.w500)
+                          ),
+                          Icon(Icons.arrow_drop_down),
+                          
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text("REMIND", style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    fontWeight: FontWeight.w800
+                  )),
+                  Container(
+                //padding:EdgeInsets.only(left: 10, right: 10),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10)),
+                    child: DropdownButton<String>(
+                          value: reminddropdownValue,
+                          onChanged: (String newValue) {
+                            setState(() {
+                              reminddropdownValue = newValue;
+                            });
+                          },
+                          items: <String>['Never','Daily', 'Weekly', 'FortNightly','Monthly','Every 3 Months']
+                            .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            })
+                            .toList(),
+                        ),
+                      )
+                ],
+              )
+            ],
           ),
-          SizedBox(height: 10.0),
+          //SizedBox(height: 10.0),
           Text("NOTE", style: Theme.of(context).textTheme.bodyText1.copyWith(
                     fontWeight: FontWeight.w800
                   )),
@@ -301,7 +444,7 @@ class _AddNewTransactionState extends State<AddNewTransaction> {
               filled: true,
               fillColor: Color(0x33E0E7FF),
               hintText: "What's this for?(Optional)",
-              contentPadding: const EdgeInsets.all(15),
+              contentPadding: const EdgeInsets.all(10),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.black26),
                 borderRadius: BorderRadius.circular(5),
@@ -312,7 +455,7 @@ class _AddNewTransactionState extends State<AddNewTransaction> {
               ),
             ),
           ),
-          SizedBox(height: 30.0),
+          SizedBox(height: 20.0),
 
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -336,7 +479,7 @@ class _AddNewTransactionState extends State<AddNewTransaction> {
                     'my_number': this.myPhone,
                     'other_name': widget.personName,
                     'other_number': widget.phoneNumber,
-                    'amount': double.tryParse(amount),
+                    'amount': amount,
                     'isSending': send,
                     'date': _dateTime,
                     'reason': reason,
