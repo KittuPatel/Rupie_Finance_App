@@ -13,8 +13,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: Colors.blue,
-        //accentColor: Colors.cyan[600],
-
+        //accentColor: Color(0xFF6bf178),
+        // color palette - https://coolors.co/ffe74c-ff5964-ffffff-6bf178-35a7ff
         fontFamily: 'Montserrat',
 
         // Access Color -  Theme.of(context).primaryColor

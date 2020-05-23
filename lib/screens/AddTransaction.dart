@@ -68,8 +68,9 @@ class _AddNewTransactionState extends State<AddNewTransaction> {
         child: ListView(children: <Widget>[
           //SizedBox(height: 20.0),
           Text("CONTACT",
-                  style: Theme.of(context).textTheme.bodyText1.copyWith(
-                    fontWeight: FontWeight.w800
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w800,
                   )),
            SizedBox(height: 5.0),        
           Row(
@@ -83,11 +84,11 @@ class _AddNewTransactionState extends State<AddNewTransaction> {
                   children: <Widget>[
                   Text("${widget.personName}",
                   style: Theme.of(context).textTheme.headline2.copyWith(
-                    //fontWeight: FontWeight.w500
+                    fontSize: 18
                   ),
                   ),
                   Text("+91 ${widget.phoneNumber}",
-                  style: Theme.of(context).textTheme.bodyText1
+                  style: Theme.of(context).textTheme.bodyText2
                   )
                 ]),
               ),
@@ -139,7 +140,7 @@ class _AddNewTransactionState extends State<AddNewTransaction> {
                                 size: 40.0,
                               )),
                           Text("You Sent ₹",
-                              style: Theme.of(context).textTheme.bodyText1.copyWith(
+                              style: Theme.of(context).textTheme.bodyText2.copyWith(
                                 fontWeight: FontWeight.w600
                               ))
                         ]),
@@ -182,7 +183,7 @@ class _AddNewTransactionState extends State<AddNewTransaction> {
                                 size: 40.0,
                               )),
                           Text("You Received ₹",
-                              style: Theme.of(context).textTheme.bodyText1.copyWith(
+                              style: Theme.of(context).textTheme.bodyText2.copyWith(
                                 fontWeight: FontWeight.w600
                               ))
                         ]),
@@ -195,8 +196,9 @@ class _AddNewTransactionState extends State<AddNewTransaction> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text("TRANSACTION TYPE",
-                  style: Theme.of(context).textTheme.bodyText1.copyWith(
-                    fontWeight: FontWeight.w800
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w800,
                   )),
               Container(
                 //padding:EdgeInsets.only(left: 10, right: 10),
@@ -224,12 +226,13 @@ class _AddNewTransactionState extends State<AddNewTransaction> {
           ),
           SizedBox(height: 10.0),
           Text("AMOUNT",
-                  style: Theme.of(context).textTheme.bodyText1.copyWith(
-                    fontWeight: FontWeight.w800
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w800,
                   )),
           SizedBox(height: 10.0),
           TextField(
-              style: TextStyle(fontSize: 23, color: Colors.black, fontWeight: FontWeight.w600),
+              style: TextStyle(fontSize: 20, color: Colors.black, fontWeight: FontWeight.w600),
               onChanged: (value) {
                 setState(() {
                   this.amount = double.parse(value);
@@ -238,13 +241,13 @@ class _AddNewTransactionState extends State<AddNewTransaction> {
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 prefixIcon: Padding(
-                              padding: const EdgeInsets.only(top:8.0,left:20),
-                              child: Text('₹',style: TextStyle(fontSize: 23, color: Colors.black, fontWeight: FontWeight.w600),),
+                              padding: const EdgeInsets.only(top:10.0,left:20),
+                              child: Text('₹',style: TextStyle(fontSize: 20, color: Colors.black, fontWeight: FontWeight.w600),),
                             ),
                 hintText: 'Enter Amount',
                 hintStyle: TextStyle(fontWeight: FontWeight.normal),
                 //prefix: Text("₹ ", style: TextStyle(color: Colors.black,fontWeight: FontWeight.w500)),
-                contentPadding: const EdgeInsets.all(10),
+                contentPadding: const EdgeInsets.all(5),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.black26),
                   borderRadius: BorderRadius.circular(5),
@@ -265,14 +268,15 @@ class _AddNewTransactionState extends State<AddNewTransaction> {
                     children: <Widget>[
                       Column(
                         children: <Widget>[
-                          Text("INTEREST % MONTH", style: Theme.of(context).textTheme.bodyText1.copyWith(
-                          fontWeight: FontWeight.w800
+                          Text("INTEREST % MONTH", style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w800,
                           )),
                           SizedBox(height: 10,),
                           Container(
                             width: 100,
                             child: TextField(
-                                style: TextStyle(fontSize: 23, color: Colors.black, fontWeight: FontWeight.w600),
+                                style: TextStyle(fontSize: 20, color: Colors.black, fontWeight: FontWeight.w600),
                                 onChanged: (value) {
                                   setState(() {
                                     this.intpercent = double.parse(value);
@@ -287,12 +291,12 @@ class _AddNewTransactionState extends State<AddNewTransaction> {
                                 decoration: InputDecoration(
                                   prefixIcon: Padding(
                                     padding: const EdgeInsets.only(top:8.0,left:15),
-                                    child: Text('%',style: TextStyle(fontSize: 23, color: Colors.black, fontWeight: FontWeight.w600),),
+                                    child: Text('%',style: TextStyle(fontSize: 20, color: Colors.black, fontWeight: FontWeight.w600),),
                                   ),
                                   hintText: '0',
                                   //hintStyle: TextStyle(fontWeight: FontWeight.normal),
                                   //prefix: Text("% ", style: TextStyle(color: Colors.black,fontWeight: FontWeight.w500)),
-                                  contentPadding: const EdgeInsets.all(10),
+                                  contentPadding: const EdgeInsets.all(5),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(color: Colors.black26),
                                     borderRadius: BorderRadius.circular(5),
@@ -308,15 +312,16 @@ class _AddNewTransactionState extends State<AddNewTransaction> {
                       ),
                       Column(
                           children: <Widget>[
-                          Text("INTEREST AMOUNT", style: Theme.of(context).textTheme.bodyText1.copyWith(
-                          fontWeight: FontWeight.w800
+                          Text("INTEREST AMOUNT", style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w800,
                           )),
                           SizedBox(height: 10,),
                           Container(
                             width: 100,
                             child: TextField(
                                 enabled: false,
-                                style: TextStyle(fontSize: 23, color: Colors.black, fontWeight: FontWeight.w600),
+                                style: TextStyle(fontSize: 20, color: Colors.black, fontWeight: FontWeight.w600),
                                 // onChanged: (value) {
                                 //   setState(() {
                                 //     this.amount = value;
@@ -327,7 +332,7 @@ class _AddNewTransactionState extends State<AddNewTransaction> {
                                   hintText: '5000',
                                   hintStyle: TextStyle(fontWeight: FontWeight.normal),
                                  // prefix: Text("₹ ", style: TextStyle(color: Colors.black,fontWeight: FontWeight.w500)),
-                                  contentPadding: const EdgeInsets.all(10),
+                                  contentPadding: const EdgeInsets.all(5),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(color: Colors.black26),
                                     borderRadius: BorderRadius.circular(5),
@@ -355,8 +360,9 @@ class _AddNewTransactionState extends State<AddNewTransaction> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text("DATE", style: Theme.of(context).textTheme.bodyText1.copyWith(
-                    fontWeight: FontWeight.w800
+                  Text("DATE", style:TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w800,
                   )),
                   FlatButton(
                       onPressed: () {
@@ -399,8 +405,9 @@ class _AddNewTransactionState extends State<AddNewTransaction> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text("REMIND", style: Theme.of(context).textTheme.bodyText1.copyWith(
-                    fontWeight: FontWeight.w800
+                  Text("REMIND", style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w800,
                   )),
                   Container(
                 //padding:EdgeInsets.only(left: 10, right: 10),
@@ -429,8 +436,9 @@ class _AddNewTransactionState extends State<AddNewTransaction> {
             ],
           ),
           //SizedBox(height: 10.0),
-          Text("NOTE", style: Theme.of(context).textTheme.bodyText1.copyWith(
-                    fontWeight: FontWeight.w800
+          Text("NOTE", style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w800,
                   )),
           SizedBox(height: 10.0),
           TextField(
@@ -463,7 +471,7 @@ class _AddNewTransactionState extends State<AddNewTransaction> {
               FlatButton(
                 child: Text(
                   'ADD TRANSACTION',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                 ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
