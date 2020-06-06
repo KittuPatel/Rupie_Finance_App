@@ -130,10 +130,10 @@ class _AddNewTransactionState extends State<AddNewTransaction> {
                         children: <Widget>[
                           Container(
                               width: 50.0,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: (receive == true) ? Colors.grey[300] : Colors.red[200],
-                                  ),
+                              // decoration: BoxDecoration(
+                              //     shape: BoxShape.circle,
+                              //     color: (receive == true) ? Colors.grey[300] : Colors.red[200],
+                              //     ),
                               child: Icon(
                                 Icons.arrow_upward,
                                 color: Colors.red,
@@ -171,12 +171,12 @@ class _AddNewTransactionState extends State<AddNewTransaction> {
                         children: <Widget>[
                           Container(
                               width: 50.0,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color:(receive == true)
-                              ? Colors.green[200]
-                              : Colors.grey[300],
-                                  ),
+                              // decoration: BoxDecoration(
+                              //     shape: BoxShape.circle,
+                              //     color:(receive == true)
+                              // ? Colors.green[200]
+                              // : Colors.grey[300],
+                              //     ),
                               child: Icon(
                                 Icons.arrow_downward,
                                 color: Colors.green,

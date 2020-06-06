@@ -36,6 +36,8 @@ class _HomeState extends State<Home> {
         ),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
+          //label: Text("New"),
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (BuildContext context) => AddNewTransaction('9640897033', 'Krishna Sai')));

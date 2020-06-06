@@ -75,12 +75,12 @@ class OnTapRepeating extends StatelessWidget {
             child: Container(
               height: 180,
               decoration: BoxDecoration(
-                color: Colors.green[100],
+                color: Colors.green[200],
                 border: Border.all(
-                color: Colors.green[100],
+                color: Colors.green[200],
                 width: 2,
               ),
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(15),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -63,12 +63,12 @@ class OnTapHandloan extends StatelessWidget {
             child: Container(
               height: 90,
               decoration: BoxDecoration(
-                color: Colors.green[100],
+                color: Colors.green[200],
                 border: Border.all(
-                color: Colors.green[100],
+                color: Colors.green[200],
                 width: 2,
               ),
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(15),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -85,7 +85,7 @@ class OnTapHandloan extends StatelessWidget {
             Text(
               names[0] + " will pay you",
               maxLines: 1,
-              style: Theme.of(context).textTheme.bodyText2
+              style: Theme.of(context).textTheme.bodyText1
             )
           ],
                 ),
@@ -101,7 +101,7 @@ class OnTapHandloan extends StatelessWidget {
             ),
             Text(
               rupee + '56,23,000',
-              style: Theme.of(context).textTheme.headline1,
+              style: Theme.of(context).textTheme.headline2,
             )
           ],
                 )

@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Colors.blue,
+        primaryColor: Colors.blue[600],
         //accentColor: Color(0xFF6bf178),
         // color palette - https://coolors.co/ffe74c-ff5964-ffffff-6bf178-35a7ff
         fontFamily: 'Montserrat',
