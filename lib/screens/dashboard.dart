@@ -76,13 +76,14 @@ class _DashboardState extends State<Dashboard> with
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Rupie',
+          'Logo',
           style: TextStyle(color: Colors.black, fontSize: 25.0),
         ),
         centerTitle: true,
         elevation: 0,
         automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
+
         actions: <Widget>[
           // Padding(
           //   padding: const EdgeInsets.all(12.0),
@@ -108,10 +109,33 @@ class _DashboardState extends State<Dashboard> with
           ),
           labelColor: Theme.of(context).primaryColor,
           unselectedLabelColor: Colors.black,
+//          labelColor: Colors.blue,
+//          unselectedLabelColor: Colors.black,
+//          indicatorSize: TabBarIndicatorSize.label,
+//          indicator: BoxDecoration(
+//              borderRadius: BorderRadius.only(
+//                  topLeft: Radius.circular(10),
+//                  topRight: Radius.circular(10)),
+//              color: Colors.blue[100]),
           tabs: [
-            new Tab(text: "HandLoans"),
-            new Tab(text: "Interest",),
-            new Tab(text: "Repeating",)
+            Tab(
+            child: Align(
+            alignment: Alignment.center,
+              child: Text("Handloans"),
+            ),
+          ),
+          Tab(
+            child: Align(
+              alignment: Alignment.center,
+              child: Text("Interest"),
+            ),
+          ),
+          Tab(
+            child: Align(
+              alignment: Alignment.center,
+              child: Text("Repeating"),
+            ),
+          ),
           ],
           controller: _tabController,
         ),
